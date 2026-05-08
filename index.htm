@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bar Alto - Formulário de Artistas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --alto-blue: #1b266a;
+            --alto-red: #ff3e33;
+            --alto-cyan: #8be1ff;
+            --alto-green: #2eb85c;
+            --bg-light: #f4f4f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--alto-blue);
+        }
+
+        h1, h2, h3, .font-display {
+            font-family: 'Syne', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* --- CSS Patterns Estáticos Antigos (Usados em outras abas) --- */
+        .pattern-2 {
+            background-color: var(--alto-cyan);
+            background-image: repeating-radial-gradient(circle at 100% 0%, var(--alto-cyan) 0px, var(--alto-cyan) 15px, var(--alto-blue) 16px, var(--alto-blue) 31px, var(--alto-cyan) 32px);
+        }
+        .pattern-3 {
+            background-color: var(--alto-green);
+            background-image: 
+                repeating-radial-gradient(circle at 0% 0%, transparent 0, transparent 14px, var(--alto-blue) 15.5px, var(--alto-blue) 29px, transparent 30.5px),
+                repeating-radial-gradient(circle at 100% 100%, transparent 0, transparent 14px, var(--alto-blue) 15.5px, var(--alto-blue) 29px, transparent 30.5px);
+        }
+        .pattern-4 {
+            background-color: var(--alto-red);
+            background-image: repeating-linear-gradient(25deg, var(--alto-red) 0px, var(--alto-red) 14.5px, var(--alto-blue) 15.5px, var(--alto-blue) 29.5px, var(--alto-red) 30.5px);
+        }
+        .pattern-5 {
+            background-color: var(--alto-blue);
+            background-image:
+                linear-gradient(135deg, var(--alto-cyan) 24%, transparent 26%),
+                linear-gradient(225deg, var(--alto-cyan) 24%, transparent 26%),
+                linear-gradient(45deg, var(--alto-cyan) 24%, transparent 26%),
+                linear-gradient(315deg, var(--alto-cyan) 24%, var(--alto-blue) 26%);
+            background-position: 14px 0, 14px 0, 0 0, 0 0;
+            background-size: 28px 28px;
+        }
+        .pattern-success {
+            background-color: var(--alto-green);
+            background-image: repeating-radial-gradient(circle at 50% 50%, var(--alto-green) 0px, var(--alto-green) 17px, #259a4c 18.5px, #259a4c 34.5px, var(--alto-green) 36px);
+        }
+
+        /* --- Novos Padrões Baseados nos Prints (Passos 2, 4 e 6) com Anti-aliasing --- */
+        .pattern-new-1 {
+            /* Cilindro 3D - afinando a partir do meio */
+            background-color: var(--alto-red);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='162' height='10'%3E%3Crect width='162' height='10' fill='%23ff3e33'/%3E%3Crect x='0' width='1' height='10' fill='%231b266a'/%3E%3Crect x='7' width='3' height='10' fill='%231b266a'/%3E%3Crect x='16' width='6' height='10' fill='%231b266a'/%3E%3Crect x='28' width='10' height='10' fill='%231b266a'/%3E%3Crect x='44' width='16' height='10' fill='%231b266a'/%3E%3Crect x='66' width='24' height='10' fill='%231b266a'/%3E%3Crect x='96' width='16' height='10' fill='%231b266a'/%3E%3Crect x='118' width='10' height='10' fill='%231b266a'/%3E%3Crect x='134' width='6' height='10' fill='%231b266a'/%3E%3Crect x='146' width='3' height='10' fill='%231b266a'/%3E%3Crect x='155' width='1' height='10' fill='%231b266a'/%3E%3C/svg%3E");
+            background-size: 162px 10px;
+            background-position: center;
+        }
+
+        .pattern-step-6 {
+            /* Padrão exato tela 6: Cilindro 3D contínuo e escalonado */
+            background-color: var(--alto-red);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='10'%3E%3Crect width='1000' height='10' fill='%23ff3e33'/%3E%3Cg fill='%231b266a'%3E%3Crect x='488' width='24' height='10'/%3E%3Crect x='512' width='22' height='10'/%3E%3Crect x='544' width='20' height='10'/%3E%3Crect x='576' width='18' height='10'/%3E%3Crect x='608' width='16' height='10'/%3E%3Crect x='640' width='14' height='10'/%3E%3Crect x='672' width='12' height='10'/%3E%3Crect x='704' width='10' height='10'/%3E%3Crect x='736' width='8' height='10'/%3E%3Crect x='768' width='6' height='10'/%3E%3Crect x='800' width='5' height='10'/%3E%3Crect x='833' width='4' height='10'/%3E%3Crect x='867' width='3' height='10'/%3E%3Crect x='902' width='2' height='10'/%3E%3Crect x='938' width='1' height='10'/%3E%3Crect x='975' width='1' height='10'/%3E%3Crect x='458' width='22' height='10'/%3E%3Crect x='428' width='20' height='10'/%3E%3Crect x='398' width='18' height='10'/%3E%3Crect x='368' width='16' height='10'/%3E%3Crect x='338' width='14' height='10'/%3E%3Crect x='308' width='12' height='10'/%3E%3Crect x='278' width='10' height='10'/%3E%3Crect x='248' width='8' height='10'/%3E%3Crect x='218' width='6' height='10'/%3E%3Crect x='187' width='5' height='10'/%3E%3Crect x='155' width='4' height='10'/%3E%3Crect x='122' width='3' height='10'/%3E%3Crect x='88' width='2' height='10'/%3E%3Crect x='53' width='1' height='10'/%3E%3Crect x='16' width='1' height='10'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 100% 100%;
+        }
+        
+        .pattern-new-2 {
+            /* Sunburst com anti-aliasing nativo */
+            background-color: var(--alto-cyan);
+            background-image: repeating-conic-gradient(from 90deg at 50% 0%, 
+                var(--alto-cyan) 0deg 1.4deg, 
+                var(--alto-blue) 1.6deg 2.9deg,
+                var(--alto-cyan) 3.1deg
+            );
+        }
+        
+        .pattern-new-3 {
+            /* Dobras Op-Art em SVG suavizado */
+            background-color: var(--alto-green);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%231b266a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 10 L 30 0 L 70 20 L 100 10 M0 20 L 30 10 L 70 30 L 100 20 M0 30 L 30 20 L 70 40 L 100 30 M0 40 L 30 30 L 70 50 L 100 40 M0 0 L 30 -10 L 70 10 L 100 0'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 100px 40px;
+        }
+
+        /* --- Form Elements --- */
+        .alto-input {
+            width: 100%;
+            background: transparent;
+            border: 2px solid var(--alto-blue);
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .alto-input:focus {
+            background: var(--alto-blue);
+            color: white;
+        }
+        .alto-input::placeholder {
+            color: rgba(27, 38, 106, 0.5);
+            font-weight: 500;
+        }
+
+        .alto-btn {
+            background: var(--alto-blue);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--alto-blue);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .alto-btn:hover {
+            background: transparent;
+            color: var(--alto-blue);
+        }
+        .alto-btn-outline {
+            background: transparent;
+            color: var(--alto-blue);
+        }
+        .alto-btn-outline:hover {
+            background: var(--alto-blue);
+            color: white;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+        .checkbox-container input {
+            margin-top: 0.25rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            accent-color: var(--alto-blue);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .lang-btn {
+            opacity: 0.5;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        .lang-btn.active {
+            opacity: 1;
+            color: var(--alto-blue);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* --- Layout Transitions --- */
+        .step-container {
+            display: none;
+            opacity: 0;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .step-container.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--alto-blue); }
+
+        .info-box {
+            background: rgba(27, 38, 106, 0.05);
+            border-left: 4px solid var(--alto-blue);
+            padding: 1rem;
+        }
+
+        @media print {
+            body { background: white !important; overflow: auto !important; height: auto !important; color: black !important; }
+            #left-panel, #nav-buttons, .step-container:not(#step-8), button { display: none !important; }
+            #step-8 { display: flex !important; opacity: 1 !important; }
+            .bg-bg-light { background: white !important; width: 100% !important; max-width: 100% !important; }
+            #form-scroll-area { overflow: visible !important; height: auto !important; padding: 0 !important; }
+            #summary-content { border: none !important; padding: 0 !important; max-height: none !important; overflow: visible !important;}
+            form { padding: 0 !important; }
+            .print-hide { display: none !important; }
+        }
+    </style>
+</head>
+<body class="h-[100dvh] w-full flex flex-col md:flex-row overflow-hidden">
+
+    <!-- LEFT PANEL: Header / Visuals -->
+    <div id="left-panel" class="w-full h-32 md:h-full md:w-2/5 lg:w-1/3 relative flex flex-col justify-between shrink-0 overflow-hidden z-20 shadow-md md:shadow-none">
+        
+        <div id="pattern-layer" class="absolute inset-0 w-full h-full z-0 pattern-2 transition-opacity duration-500 opacity-100" style="opacity: 1;"></div>
+        
+        <!-- Header Topo -->
+        <div class="relative z-10 bg-white/95 backdrop-blur-sm p-4 md:p-6 flex items-center justify-between gap-4 md:border-b-4 md:border-alto-blue">
+            <div class="flex items-center gap-3">
+                <img src="https://raw.githubusercontent.com/ganwalk/baralto/main/cropped-BarAlto_Logo_Azul-q1h2eo8anxu20jip8tgizeiqyrl5nsoxw6wpwl0vdm.png" alt="Bar Alto Logo" class="h-6 md:h-8 object-contain">
+                <span class="font-display text-lg md:text-xl tracking-widest text-alto-blue hidden xl:inline" data-i18n="artistas_label">ARTISTAS</span>
+            </div>
+            
+            <!-- Language Selector -->
+            <div class="flex gap-3 text-xs md:text-sm font-bold ml-auto md:ml-0 md:mr-4">
+                <button onclick="changeLang('pt')" class="lang-btn active" id="lang-pt">PT</button>
+                <button onclick="changeLang('en')" class="lang-btn" id="lang-en">EN</button>
+                <button onclick="changeLang('es')" class="lang-btn" id="lang-es">ES</button>
+            </div>
+
+            <!-- Mobile Step Title -->
+            <div class="md:hidden text-right flex-shrink-0">
+                <h1 class="text-base font-display leading-tight" id="step-title-mobile">Bem-vindo</h1>
+                <p class="text-xs font-bold text-alto-red tracking-widest" id="step-counter-mobile">01 / 07</p>
+            </div>
+        </div>
+
+        <!-- Desktop Step Title -->
+        <div class="relative z-10 hidden md:flex flex-col p-8 bg-white/95 backdrop-blur-sm m-6 border-4 border-alto-blue">
+            <p class="text-sm font-bold tracking-widest mb-2 text-alto-red" id="step-counter">01 / 07</p>
+            <h1 class="text-3xl lg:text-4xl leading-none" id="step-title">Bem-vindo<br>ao Alto</h1>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL: Área de Scroll Flexível -->
+    <div class="w-full flex-grow md:w-3/5 lg:w-2/3 flex flex-col relative z-10 bg-bg-light">
+        
+        <div class="flex-grow overflow-y-auto custom-scroll" id="form-scroll-area">
+            <form id="alto-form" class="p-6 md:p-12 lg:p-16 max-w-3xl mx-auto flex flex-col gap-6 pb-12" onsubmit="event.preventDefault(); submitForm();">
+                
+                <!-- STEP 1: INTRO -->
+                <div class="step-container active flex-col gap-6" id="step-1">
+                    <h2 class="text-3xl md:text-5xl mb-2 font-display" data-i18n="s1_title">Vamos afinar<br>os detalhes.</h2>
+                    <p class="text-base md:text-lg font-medium leading-relaxed" data-i18n="s1_p1">
+                        É de absoluta importância que cada etapa deste documento seja lida e preenchida com a devida atenção, a partir do momento que a data do show for marcada.
+                    </p>
+                    <p class="text-base md:text-lg leading-relaxed" data-i18n="s1_p2">
+                        Isso garante que não existam falhas de comunicação em relação aos assuntos citados, técnicos e financeiros.
+                    </p>
+                    <div class="mt-4 border-t-2 border-alto-blue pt-6">
+                        <p class="text-xs uppercase font-bold tracking-widest mb-3 text-alto-red" data-i18n="s1_booking">Responsáveis pelo booking:</p>
+                        <p class="font-medium text-sm md:text-base text-alto-blue">Daniel Durso - +55 (11) 96664-7369</p>
+                        <p class="font-medium text-sm md:text-base text-alto-blue">Gabriele Prieto - +55 (11) 97285-4502</p>
+                    </div>
+                </div>
+
+                <!-- STEP 2: DADOS BÁSICOS -->
+                <div class="step-container flex-col gap-6" id="step-2">
+                    <h2 class="text-2xl md:text-3xl font-display mb-2 border-b-2 border-alto-blue pb-2" data-i18n="s2_title">Dados Básicos</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide" data-i18n="s2_name">Nome completo do contato *</label>
+                            <input type="text" class="alto-input" required data-i18n-placeholder="s2_name_ph" placeholder="Ex: João da Silva">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide" data-i18n="s2_band">Nome artístico / Banda *</label>
+                            <input type="text" class="alto-input" required data-i18n-placeholder="s2_band_ph" placeholder="Ex: Os Mutantes">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide" data-i18n="s2_email">Email de contato *</label>
+                            <input type="email" class="alto-input" required data-i18n-placeholder="s2_email_ph" placeholder="contato@banda.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide" data-i18n="s2_phone">Número de telefone *</label>
+                            <input type="tel" class="alto-input" required data-i18n-placeholder="s2_phone_ph" placeholder="(11) 99999-9999">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: NEGOCIAÇÃO -->
+                <div class="step-container flex-col gap-6" id="step-3">
+                    <h2 class="text-2xl md:text-3xl font-display mb-2 border-b-2 border-alto-blue pb-2" data-i18n="s3_title">Negociação</h2>
+                    
+                    <div class="info-box">
+                        <h3 class="text-lg font-display mb-3" data-i18n="s3_div">Divisão de Bilheteria</h3>
+                        <ul class="list-disc pl-5 space-y-2 font-medium text-sm">
+                            <li data-i18n="s3_div1"><strong>Até 40 ingressos:</strong> 50% Artista / 50% Casa</li>
+                            <li data-i18n="s3_div2"><strong>Mais de 40 ingressos:</strong> 70% Artista / 30% Casa</li>
+                        </ul>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="border-2 border-alto-blue p-4 bg-white">
+                            <p class="text-xs font-bold uppercase mb-1 text-alto-red" data-i18n="s3_cap">Capacidade</p>
+                            <p class="text-2xl font-display">120 in.</p>
+                            <p class="text-xs mt-1 font-medium" data-i18n="s3_cap_desc">serão colocados à venda.</p>
+                        </div>
+                        <div class="border-2 border-alto-blue p-4 bg-white">
+                            <p class="text-xs font-bold uppercase mb-2 text-alto-red" data-i18n="s3_prices">Sugestão de Preços</p>
+                            <ul class="text-sm space-y-1 font-medium">
+                                <li data-i18n="s3_p1"><strong>R$ 25</strong> - 1º Lote (30 un.)</li>
+                                <li data-i18n="s3_p2"><strong>R$ 35</strong> - 2º Lote (90 un.)</li>
+                                <li data-i18n="s3_p3"><strong>R$ 40</strong> - Porta</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <label class="checkbox-container bg-white p-4 border-2 border-gray-300 hover:border-alto-blue transition-colors">
+                        <input type="checkbox" required>
+                        <span class="text-sm font-medium leading-relaxed" data-i18n="s3_agree">Li e estou de acordo com os termos de divisão de bilheteria e sugestão de preços. Tratarei dúvidas com o booking.</span>
+                    </label>
+                </div>
+
+                <!-- STEP 4: FINANCEIRO -->
+                <div class="step-container flex-col gap-6" id="step-4">
+                    <h2 class="text-2xl md:text-3xl font-display mb-2 border-b-2 border-alto-blue pb-2" data-i18n="s4_title">Financeiro</h2>
+                    
+                    <div class="info-box">
+                        <ul class="list-disc pl-5 space-y-2 text-sm font-medium">
+                            <li data-i18n="s4_info1">Repasse será feito para uma <strong>única conta bancária</strong>. O titular se responsabiliza pelo repasse ao resto da equipe.</li>
+                            <li data-i18n="s4_info2">Envio do borderô e fechamento na <strong>semana após o evento</strong>.</li>
+                            <li data-i18n="s4_info3">Pagamento em até <strong>15 dias corridos</strong> após o show.</li>
+                        </ul>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide" data-i18n="s4_titular">Nome Completo do Titular *</label>
+                            <input type="text" class="alto-input" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide">CPF / CNPJ *</label>
+                            <input type="text" class="alto-input" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide">Chave PIX *</label>
+                            <input type="text" class="alto-input" required>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide text-gray-500" data-i18n="s4_bank_opt">Banco, Agência e Conta (Opcional se PIX for celular/email)</label>
+                            <div class="flex flex-col md:flex-row gap-3">
+                                <input type="text" class="alto-input md:w-1/2" data-i18n-placeholder="s4_bank" placeholder="Banco">
+                                <div class="flex gap-3 md:w-1/2">
+                                    <input type="text" class="alto-input w-1/2" data-i18n-placeholder="s4_ag" placeholder="Ag.">
+                                    <input type="text" class="alto-input w-1/2" data-i18n-placeholder="s4_acc" placeholder="Conta">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5: COMUNICAÇÃO -->
+                <div class="step-container flex-col gap-6" id="step-5">
+                    <h2 class="text-2xl md:text-3xl font-display mb-2 border-b-2 border-alto-blue pb-2" data-i18n="s5_title">Comunicação</h2>
+                    
+                    <p class="text-sm font-medium" data-i18n="s5_desc">Devido ao volume de eventos, postamos na semana do show. O artista deve se comprometer a agitar seu público antes.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide" data-i18n="s5_date">Data da apresentação *</label>
+                            <input type="date" class="alto-input" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide">Instagram *</label>
+                            <input type="text" class="alto-input" required placeholder="@suabanda">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold mb-2 uppercase tracking-wide" data-i18n="s5_drive">Link do Drive (Fotos Públicas) *</label>
+                            <input type="url" class="alto-input" required data-i18n-placeholder="s5_drive_ph" placeholder="Imprescindível: 1 foto capa 1920x1080px (16:9)">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wide mb-2" data-i18n="s5_release">Release Artístico *</label>
+                        
+                        <div id="release-help" class="bg-white p-4 border-2 border-dashed border-alto-blue mb-3 text-sm">
+                            <strong class="text-alto-red uppercase text-xs" data-i18n="s5_ex_title">Exemplo:</strong><br>
+                            <span class="italic text-gray-600" data-i18n="s5_ex_text">"A banda X, formada em 2020 em São Paulo, traz uma mistura de indie rock com ritmos brasileiros. O show traz um repertório autoral focado na energia do palco."</span>
+                        </div>
+
+                        <textarea class="alto-input min-h-[120px]" required data-i18n-placeholder="s5_release_ph" placeholder="Insira seu release resumido e infos relevantes em cerca de dois parágrafos..."></textarea>
+                    </div>
+
+                    <div class="bg-white p-4 border border-gray-200 text-sm space-y-2">
+                        <p class="font-bold uppercase text-xs text-alto-red" data-i18n="s5_rules">Regras da Casa:</p>
+                        <ul class="list-disc pl-5 space-y-1 font-medium text-xs">
+                            <li data-i18n="s5_r1">A banda já pode iniciar divulgação antes da casa.</li>
+                            <li data-i18n="s5_r2">Enviaremos flyer com ID do Alto na semana do evento.</li>
+                            <li data-i18n="s5_r3">Postamos grade semanal na Seg/Ter.</li>
+                            <li data-i18n="s5_r4">Postamos arte individual do evento no próprio dia.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- STEP 6: TÉCNICA -->
+                <div class="step-container flex-col gap-6" id="step-6">
+                    <h2 class="text-2xl md:text-3xl font-display mb-2 border-b-2 border-alto-blue pb-2" data-i18n="s6_title">Parte Técnica</h2>
+
+                    <div>
+                        <label class="block text-xs font-bold mb-2 uppercase tracking-wide" data-i18n="s6_form">Formação no Palco *</label>
+                        <textarea class="alto-input min-h-[80px]" required data-i18n-placeholder="s6_form_ph" placeholder="Ex: Ana (Voz/Violão), Carlos (Baixo), Pedro (Bateria)"></textarea>
+                    </div>
+
+                    <div class="bg-white border-2 border-alto-blue p-5">
+                        <h3 class="text-lg font-display mb-2 text-alto-red" data-i18n="s6_map_title">Mapa de Palco (Rider)</h3>
+                        <p class="text-sm font-medium mb-4" data-i18n="s6_map_desc">Baixe o nosso exemplo de palco em imagem, escreva e/ou desenhe por cima os seus instrumentos e microfones, e faça o upload abaixo. Se preferir, cole o link do seu próprio PDF.</p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                            <a href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' style='background:%23f4f4f0'><rect x='50' y='50' width='700' height='500' fill='none' stroke='%231b266a' stroke-width='6'/><line x1='50' y1='120' x2='750' y2='120' stroke='%231b266a' stroke-width='2' stroke-dasharray='10,10'/><text x='400' y='95' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' fill='%231b266a'>PÚBLICO / FRENTE DO PALCO</text><text x='400' y='520' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' fill='%23ff3e33'>FUNDO DO PALCO (BATERIA / AMPS)</text><text x='400' y='300' font-family='sans-serif' font-size='20' text-anchor='middle' fill='%231b266a' opacity='0.3'>DESENHE A SUA FORMAÇÃO AQUI</text></svg>" 
+                               download="Template_Palco_BarAlto.svg" 
+                               class="alto-btn text-xs text-center flex-1 flex items-center justify-center" data-i18n="s6_map_dl">
+                                1. Baixar Template
+                            </a>
+                            
+                            <div id="drop-zone" class="flex-1 relative border-2 border-dashed border-alto-blue bg-transparent hover:bg-blue-50 transition-colors flex flex-col items-center justify-center p-3 min-h-[50px]">
+                                <label for="rider-file" class="text-xs text-center font-bold text-alto-blue cursor-pointer w-full h-full flex items-center justify-center" data-i18n="s6_map_ul">
+                                    2. Arraste ou Faça Upload
+                                </label>
+                                <input type="file" id="rider-file" accept="image/*,.pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="checkFileInput()">
+                                <p id="file-name-display" class="absolute bottom-1 left-0 w-full text-[10px] mt-1 text-center font-bold text-alto-green hidden px-2 truncate"></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 mb-4">
+                            <hr class="flex-grow border-gray-300">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-widest" data-i18n="s6_or">OU</span>
+                            <hr class="flex-grow border-gray-300">
+                        </div>
+
+                        <label class="block text-xs font-bold mb-2 uppercase tracking-wide" data-i18n="s6_map_link">Descreva ou cole o Link do seu Rider *</label>
+                        <textarea class="alto-input min-h-[80px]" id="rider-input" data-i18n-placeholder="s6_map_link_ph" placeholder="Cole o link do Drive/Dropbox, ou descreva: 'Bateria no fundo, 2 mics na frente...'"></textarea>
+                    </div>
+
+                    <div class="info-box flex flex-col gap-2">
+                        <p class="text-sm font-medium text-alto-red uppercase tracking-widest"><a href="https://drive.google.com/file/d/1acAr0SxCcmip-mmeCqpNdY-DAGOEpKdR/view?usp=sharing" target="_blank" class="underline hover:text-alto-blue" data-i18n="s6_pdf_house">Acessar PDF do Rider da Casa</a></p>
+                        <p class="text-xs" data-i18n="s6_pdf_desc">Qualquer equipamento extra será de responsabilidade da banda e deverá ser aprovado. Dúvidas? Fale com Miller: (11) 93145-4227.</p>
+                    </div>
+                </div>
+
+                <!-- STEP 7: CRONOGRAMA -->
+                <div class="step-container flex-col gap-6" id="step-7">
+                    <h2 class="text-2xl md:text-3xl font-display mb-2 border-b-2 border-alto-blue pb-2" data-i18n="s7_title">Cronograma</h2>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        
+                        <!-- Consumação -->
+                        <div class="border-2 border-alto-blue p-4 bg-white flex flex-col justify-center">
+                            <h3 class="font-bold text-sm uppercase tracking-widest text-alto-red mb-3" data-i18n="s7_cons">Consumação</h3>
+                            <ul class="space-y-3 text-sm font-medium">
+                                <li class="flex justify-between items-center border-b border-gray-100 pb-2">
+                                    <span data-i18n="s7_c1">Até 40 ingressos</span>
+                                    <strong class="text-lg font-display">R$ 200</strong>
+                                </li>
+                                <li class="flex justify-between items-center">
+                                    <span data-i18n="s7_c2">Mais de 40 in.</span>
+                                    <strong class="text-lg font-display">R$ 500</strong>
+                                </li>
+                            </ul>
+                            <div class="mt-4 p-3 bg-red-50 border border-red-100 rounded text-xs text-alto-red font-bold text-center" data-i18n="s7_camarim">
+                                A casa não disponibiliza sala de camarim.
+                            </div>
+                        </div>
+
+                        <!-- Horários -->
+                        <div class="border-2 border-alto-blue bg-white h-56 lg:h-64 overflow-y-auto custom-scroll relative">
+                            <h3 class="font-bold text-sm uppercase tracking-widest text-alto-red p-4 pb-2 sticky top-0 bg-white/95 backdrop-blur-sm shadow-sm" data-i18n="s7_hours">Padrão de Horários</h3>
+                            
+                            <div class="p-4 pt-2 space-y-4">
+                                <div class="text-xs">
+                                    <strong class="text-alto-blue text-sm" data-i18n="s7_h1_d">Seg a Qui:</strong>
+                                    <ul class="list-disc pl-4 mt-1 space-y-1 font-medium">
+                                        <li data-i18n="s7_h1_1">Passagem: 18h às 20h</li>
+                                        <li data-i18n="s7_h1_2">Início do show: 21h (2 bandas) ou 22h (1 banda)</li>
+                                        <li data-i18n="s7_h1_3">Encerra: 23h30 | Desmontagem: 23h50</li>
+                                    </ul>
+                                </div>
+                                <div class="text-xs">
+                                    <strong class="text-alto-blue text-sm" data-i18n="s7_h2_d">Sexta:</strong>
+                                    <ul class="list-disc pl-4 mt-1 space-y-1 font-medium">
+                                        <li data-i18n="s7_h2_1">Passagem: 18h às 20h</li>
+                                        <li data-i18n="s7_h2_2">Início: 20h30 (2 bandas) ou 21h (1 banda)</li>
+                                        <li data-i18n="s7_h2_3">Encerra: 22h30 | Desmontagem: 22h50</li>
+                                    </ul>
+                                </div>
+                                <div class="text-xs">
+                                    <strong class="text-alto-blue text-sm" data-i18n="s7_h3_d">Sábado:</strong>
+                                    <ul class="list-disc pl-4 mt-1 space-y-1 font-medium">
+                                        <li data-i18n="s7_h3_1">Passagem: 15h às 18h</li>
+                                        <li data-i18n="s7_h3_2">Início: 18h(3b) | 19h(2b) | 20h(1b)</li>
+                                        <li data-i18n="s7_h3_3">Encerra: 21h30 | Desmontagem: 22h00</li>
+                                    </ul>
+                                </div>
+                                <div class="text-xs">
+                                    <strong class="text-alto-blue text-sm" data-i18n="s7_h4_d">Domingo:</strong>
+                                    <ul class="list-disc pl-4 mt-1 space-y-1 font-medium">
+                                        <li data-i18n="s7_h4_1">Passagem: 14h às 16h</li>
+                                        <li data-i18n="s7_h4_2">Início: 19h(3b) | 20h(2b) | 21h(1b)</li>
+                                        <li data-i18n="s7_h4_3">Encerra: 22h00 | Desmontagem: 22h30</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label class="checkbox-container bg-white p-5 border-2 border-alto-blue hover:bg-blue-50 transition-colors mt-2">
+                        <input type="checkbox" required>
+                        <span class="text-sm font-bold text-alto-blue leading-relaxed" data-i18n="s7_agree">Estou ciente e de acordo com a política de consumação, ausência de camarim e com a pontualidade rígida do cronograma.</span>
+                    </label>
+                </div>
+
+                <!-- STEP 8: RESUMO -->
+                <div class="step-container flex-col gap-6" id="step-8">
+                    <h2 class="text-2xl md:text-3xl font-display mb-2 border-b-2 border-alto-blue pb-2" data-i18n="s8_title">Resumo Final</h2>
+                    <p class="text-sm font-medium" data-i18n="s8_desc">Confira os dados abaixo. Você pode baixar uma cópia deste resumo para os seus registros antes de enviar. Clique nos blocos para editar.</p>
+                    
+                    <div id="summary-content" class="w-full pb-2">
+                        <!-- Conteúdo injetado via JS em formato de grid -->
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 mt-2 print-hide">
+                        <button type="button" onclick="window.print()" class="alto-btn bg-alto-blue text-white hover:bg-transparent hover:text-alto-blue flex-1 text-sm md:text-base text-center py-4 flex items-center justify-center gap-3" data-i18n="btn_download">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                            Baixar / Imprimir Resumo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SUCCESS STEP -->
+                <div class="step-container flex-col gap-6 text-center py-20" id="step-success">
+                    <svg class="w-20 h-20 mx-auto text-alto-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    <h2 class="text-4xl md:text-5xl font-display" data-i18n="succ_title">Tudo Certo!</h2>
+                    <p class="text-lg md:text-xl font-medium" data-i18n="succ_p1">Recebemos suas informações perfeitamente.</p>
+                    <p class="text-sm md:text-base" data-i18n="succ_p2">Nos vemos no Bar Alto. Qualquer dúvida extra, é só chamar no WhatsApp.</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- FOOTER NAV -->
+        <div id="nav-buttons" class="shrink-0 w-full bg-white border-t-4 border-alto-blue p-4 flex justify-between items-center shadow-[0_-10px_20px_rgba(0,0,0,0.03)] z-20 relative">
+            <button type="button" id="btn-prev" class="alto-btn-outline px-4 py-3 font-bold text-xs md:text-sm hidden" onclick="prevStep()" data-i18n="btn_prev">Voltar</button>
+            <div class="flex-grow"></div>
+            
+            <!-- Botão de Ver Resumo Rápido (Aparece se já tiver chegado no passo 8) -->
+            <button type="button" id="btn-jump-summary" class="alto-btn-outline px-4 py-3 font-bold text-xs md:text-sm hidden mr-4" onclick="goToStep(8)" data-i18n="btn_summary">Resumo</button>
+            
+            <!-- Botão de Dúvidas (Booking) -->
+            <div class="relative mr-4 md:mr-6" id="duvidas-container">
+                <button type="button" onclick="toggleDuvidas(event)" class="text-[11px] md:text-xs font-bold uppercase tracking-widest text-alto-red hover:text-alto-blue underline underline-offset-4 whitespace-nowrap" data-i18n="nav_questions">
+                    Dúvidas?
+                </button>
+                
+                <!-- Popover de Contatos flutuante -->
+                <div id="duvidas-popover" class="hidden absolute bottom-full mb-4 right-0 md:right-auto md:left-1/2 md:-translate-x-1/2 w-[220px] md:w-64 bg-white border-2 border-alto-blue p-4 shadow-xl z-50 text-left">
+                    <p class="text-xs uppercase font-bold text-alto-red mb-3" data-i18n="s1_booking">Responsáveis pelo booking:</p>
+                    <p class="text-xs md:text-sm font-medium text-alto-blue">Daniel Durso<br>+55 (11) 96664-7369</p>
+                    <hr class="border-gray-200 my-2">
+                    <p class="text-xs md:text-sm font-medium text-alto-blue">Gabriele Prieto<br>+55 (11) 97285-4502</p>
+                </div>
+            </div>
+
+            <button type="button" id="btn-next" class="alto-btn text-xs md:text-sm w-full md:w-auto px-4 py-3" onclick="nextStep()" data-i18n="btn_start">Vamos Iniciar</button>
+            <button type="submit" form="alto-form" id="btn-submit" class="alto-btn bg-alto-green border-alto-green hover:text-alto-green hidden text-xs md:text-sm w-full md:w-auto px-4 py-3" data-i18n="btn_submit">Enviar Dados</button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- TRANSLATIONS DICTIONARY ---
+        const i18n = {
+            pt: {
+                artistas_label: "ARTISTAS", btn_prev: "Voltar", btn_start: "Vamos Iniciar", btn_next: "Avançar Passo", btn_submit: "Enviar Dados", nav_questions: "Dúvidas?", btn_download: "Baixar / Imprimir Resumo", btn_summary: "Ir p/ Resumo", btn_edit: "Editar ✎", not_filled: "Não preenchido", map_file: "Mapa de Palco (Arquivo)", s6_map_link_summary: "Link / Descrição do Rider", btn_review_terms: "Rever termos", terms_agreed: "Concordo com os termos definidos.",
+                step_titles: ["Bem-vindo<br>ao Alto", "Dados<br>Básicos", "Termos &<br>Negociação", "Dados<br>Bancários", "Material &<br>Release", "Mapa de<br>Palco", "Horários &<br>Consumo", "Resumo<br>Final"],
+                s1_title: "Vamos afinar<br>os detalhes.", s1_p1: "É de absoluta importância que cada etapa deste documento seja lida e preenchida com a devida atenção, a partir do momento que a data do show for marcada.", s1_p2: "Isso garante que não existam falhas de comunicação em relação aos assuntos citados, técnicos e financeiros.", s1_booking: "Responsáveis pelo booking:",
+                s2_title: "Dados Básicos", s2_name: "Nome completo do contato *", s2_name_ph: "Ex: João da Silva", s2_band: "Nome artístico / Banda *", s2_band_ph: "Ex: Os Mutantes", s2_email: "Email de contato *", s2_email_ph: "contato@banda.com", s2_phone: "Número de telefone *", s2_phone_ph: "(11) 99999-9999",
+                s3_title: "Negociação", s3_div: "Divisão de Bilheteria", s3_div1: "<strong>Até 40 ingressos:</strong> 50% Artista / 50% Casa", s3_div2: "<strong>Mais de 40 ingressos:</strong> 70% Artista / 30% Casa", s3_cap: "Capacidade", s3_cap_desc: "serão colocados à venda.", s3_prices: "Sugestão de Preços", s3_p1: "<strong>R$ 25</strong> - 1º Lote (30 un.)", s3_p2: "<strong>R$ 35</strong> - 2º Lote (90 un.)", s3_p3: "<strong>R$ 40</strong> - Porta", s3_agree: "Li e estou de acordo com os termos de divisão de bilheteria e sugestão de preços. Tratarei dúvidas com o booking.",
+                s4_title: "Financeiro", s4_info1: "Repasse será feito para uma <strong>única conta bancária</strong>. O titular se responsabiliza pelo repasse ao resto da equipe.", s4_info2: "Envio do borderô e fechamento na <strong>semana após o evento</strong>.", s4_info3: "Pagamento em até <strong>15 dias corridos</strong> após o show.", s4_titular: "Nome Completo do Titular *", s4_bank_opt: "Banco, Agência e Conta (Opcional se PIX for celular/email)", s4_bank: "Banco", s4_ag: "Ag.", s4_acc: "Conta",
+                s5_title: "Comunicação", s5_desc: "Devido ao volume de eventos, postamos na semana do show. O artista deve se comprometer a agitar seu público antes.", s5_date: "Data da apresentação *", s5_drive: "Link do Drive (Fotos Públicas) *", s5_drive_ph: "Imprescindível: 1 foto capa 1920x1080px (16:9)", s5_release: "Release Artístico *", s5_btn_ex: "Ver Exemplo", s5_ex_title: "Exemplo:", s5_ex_text: "\"A banda X, formada em 2020 em São Paulo, traz uma mistura de indie rock com ritmos brasileiros. O show traz um repertório autoral focado na energia do palco.\"", s5_release_ph: "Insira seu release resumido e infos relevantes em cerca de dois parágrafos...", s5_rules: "Regras da Casa:", s5_r1: "A banda já pode iniciar divulgação antes da casa.", s5_r2: "Enviaremos flyer com ID do Alto na semana do evento.", s5_r3: "Postamos grade semanal na Seg/Ter.", s5_r4: "Postamos arte individual do evento no próprio dia.",
+                s6_title: "Parte Técnica", s6_form: "Formação no Palco *", s6_form_ph: "Ex: Ana (Voz/Violão), Carlos (Baixo), Pedro (Bateria)", s6_map_title: "Mapa de Palco (Rider)", s6_map_desc: "Baixe o nosso exemplo de palco em imagem, escreva e/ou desenhe por cima os seus instrumentos e microfones, e faça o upload abaixo. Se preferir, cole o link do seu próprio PDF.", s6_map_dl: "1. Baixar Template", s6_map_ul: "2. Arraste ou Faça Upload", s6_or: "OU", s6_map_link: "Descreva ou cole o Link do seu Rider *", s6_map_link_ph: "Cole o link do Drive/Dropbox, ou descreva: 'Bateria no fundo, 2 mics na frente...'", s6_pdf_house: "Acessar PDF do Rider da Casa", s6_pdf_desc: "Qualquer equipamento extra será de responsabilidade da banda e deverá ser aprovado. Dúvidas? Fale com Miller: (11) 93145-4227.",
+                s7_title: "Cronograma", s7_cons: "Consumação", s7_c1: "Até 40 ingressos", s7_c2: "Mais de 40 in.", s7_camarim: "A casa não disponibiliza sala de camarim.", s7_hours: "Padrão de Horários", s7_h1_d: "Seg a Qui:", s7_h1_1: "Passagem: 18h às 20h", s7_h1_2: "Início do show: 21h (2 bandas) ou 22h (1 banda)", s7_h1_3: "Encerra: 23h30 | Desmontagem: 23h50", s7_h2_d: "Sexta:", s7_h2_1: "Passagem: 18h às 20h", s7_h2_2: "Início: 20h30 (2 bandas) ou 21h (1 banda)", s7_h2_3: "Encerra: 22h30 | Desmontagem: 22h50", s7_h3_d: "Sábado:", s7_h3_1: "Passagem: 15h às 18h", s7_h3_2: "Início: 18h(3b) | 19h(2b) | 20h(1b)", s7_h3_3: "Encerra: 21h30 | Desmontagem: 22h00", s7_h4_d: "Domingo:", s7_h4_1: "Passagem: 14h às 16h", s7_h4_2: "Início: 19h(3b) | 20h(2b) | 21h(1b)", s7_h4_3: "Encerra: 22h00 | Desmontagem: 22h30", s7_agree: "Estou ciente e de acordo com a política de consumação, ausência de camarim e com a pontualidade rígida do cronograma.",
+                s8_title: "Resumo Final", s8_desc: "Confira os dados abaixo. Você pode baixar uma cópia deste resumo para os seus registros antes de enviar. Clique nos blocos para editar.",
+                succ_title: "Tudo Certo!", succ_p1: "Recebemos suas informações perfeitamente.", succ_p2: "Nos vemos no Bar Alto. Qualquer dúvida extra, é só chamar no WhatsApp."
+            },
+            en: {
+                artistas_label: "ARTISTS", btn_prev: "Back", btn_start: "Let's Start", btn_next: "Next Step", btn_submit: "Submit Data", nav_questions: "Questions?", btn_download: "Download / Print Summary", btn_summary: "To Summary", btn_edit: "Edit ✎", not_filled: "Not filled", map_file: "Stage Map (File)", s6_map_link_summary: "Rider Link / Description", btn_review_terms: "Review terms", terms_agreed: "I agree with the defined terms.",
+                step_titles: ["Welcome<br>to Alto", "Basic<br>Data", "Terms &<br>Booking", "Bank<br>Details", "Promo &<br>Release", "Stage<br>Map", "Schedule &<br>Tabs", "Final<br>Summary"],
+                s1_title: "Let's fine-tune<br>the details.", s1_p1: "It is absolutely crucial that each step of this document is read and filled with care, from the moment your gig date is confirmed.", s1_p2: "This ensures there are no miscommunications regarding technical, financial, and logistical matters.", s1_booking: "Booking managers:",
+                s2_title: "Basic Data", s2_name: "Full contact name *", s2_name_ph: "Ex: John Doe", s2_band: "Stage name / Band *", s2_band_ph: "Ex: The Mutants", s2_email: "Contact email *", s2_email_ph: "contact@band.com", s2_phone: "Phone number *", s2_phone_ph: "+55 (11) 99999-9999",
+                s3_title: "Booking & Terms", s3_div: "Box Office Split", s3_div1: "<strong>Up to 40 tickets:</strong> 50% Artist / 50% Venue", s3_div2: "<strong>Over 40 tickets:</strong> 70% Artist / 30% Venue", s3_cap: "Capacity", s3_cap_desc: "tickets will be sold.", s3_prices: "Suggested Prices", s3_p1: "<strong>R$ 25</strong> - 1st Early Bird (30 tix)", s3_p2: "<strong>R$ 35</strong> - 2nd Early Bird (90 tix)", s3_p3: "<strong>R$ 40</strong> - Door", s3_agree: "I have read and agree with the box office split and price suggestions. I'll discuss any doubts with the booking manager.",
+                s4_title: "Bank Details", s4_info1: "Payment will be sent to a <strong>single bank account</strong>. The account holder is responsible for paying the rest of the crew.", s4_info2: "Financial report and closing will be sent <strong>the week after the event</strong>.", s4_info3: "Payment within <strong>15 consecutive days</strong> after the show.", s4_titular: "Full Account Holder Name *", s4_bank_opt: "Bank, Branch and Account (Optional if PIX is email/phone)", s4_bank: "Bank", s4_ag: "Branch", s4_acc: "Account",
+                s5_title: "Promo & Comms", s5_desc: "Due to high event volume, we post the week of the show. The artist must commit to hyping up their own crowd.", s5_date: "Gig Date *", s5_drive: "Drive Link (Public Photos) *", s5_drive_ph: "Mandatory: 1 cover photo 1920x1080px (16:9)", s5_release: "Artist Release *", s5_btn_ex: "See Example", s5_ex_title: "Example:", s5_ex_text: "\"Band X, formed in 2020 in São Paulo, brings a mix of indie rock with Brazilian rhythms. The show features an original repertoire focused on stage energy.\"", s5_release_ph: "Insert your short release and relevant info in about two paragraphs...", s5_rules: "Venue Rules:", s5_r1: "The band can start promo before the venue does.", s5_r2: "We'll send the flyer with venue ID on the week of the event.", s5_r3: "We post weekly schedules on Mon/Tue.", s5_r4: "We post individual event art on the day of the show.",
+                s6_title: "Technical Setup", s6_form: "Stage Formation *", s6_form_ph: "Ex: Ana (Vocals/Acoustic), Carlos (Bass), Pedro (Drums)", s6_map_title: "Stage Map (Rider)", s6_map_desc: "Download our stage template image, write and/or draw your instruments and mics over it, and upload it below. Or paste your PDF link.", s6_map_dl: "1. Download Template", s6_map_ul: "2. Drag or Upload Map", s6_or: "OR", s6_map_link: "Describe or paste your Rider Link *", s6_map_link_ph: "Paste Drive/Dropbox link, or describe: 'Drums in back, 2 mics front...'", s6_pdf_house: "Access Venue's Tech Rider PDF", s6_pdf_desc: "Any extra gear is the band's responsibility and must be approved. Questions? Call Miller (Sound Tech): +55 (11) 93145-4227.",
+                s7_title: "Schedule", s7_cons: "Bar Tab", s7_c1: "Up to 40 tickets", s7_c2: "Over 40 tix", s7_camarim: "The venue does not provide a dedicated green room.", s7_hours: "Standard Schedules", s7_h1_d: "Mon to Thu:", s7_h1_1: "Soundcheck: 6PM - 8PM", s7_h1_2: "Show start: 9PM (2 bands) or 10PM (1 band)", s7_h1_3: "Ends: 11:30PM | Load-out: 11:50PM", s7_h2_d: "Friday:", s7_h2_1: "Soundcheck: 6PM - 8PM", s7_h2_2: "Show start: 8:30PM (2 bands) or 9PM (1 band)", s7_h2_3: "Ends: 10:30PM | Load-out: 10:50PM", s7_h3_d: "Saturday:", s7_h3_1: "Soundcheck: 3PM - 6PM", s7_h3_2: "Start: 6PM(3b) | 7PM(2b) | 8PM(1b)", s7_h3_3: "Ends: 9:30PM | Load-out: 10:00PM", s7_h4_d: "Sunday:", s7_h4_1: "Soundcheck: 2PM - 4PM", s7_h4_2: "Start: 7PM(3b) | 8PM(2b) | 9PM(1b)", s7_h4_3: "Ends: 10:00PM | Load-out: 10:30PM", s7_agree: "I am aware and agree with the bar tab policy, absence of green room, and strict schedule punctuality.",
+                s8_title: "Final Summary", s8_desc: "Review the data below. You can download a copy of this summary for your records before submitting. Click the blocks to edit.",
+                succ_title: "All Set!", succ_p1: "We received your information perfectly.", succ_p2: "See you at Bar Alto. Any extra questions, just ping us on WhatsApp."
+            },
+            es: {
+                artistas_label: "ARTISTAS", btn_prev: "Volver", btn_start: "Empezar", btn_next: "Avanzar", btn_submit: "Enviar Datos", nav_questions: "¿Dudas?", btn_download: "Descargar / Imprimir", btn_summary: "Ir al Resumen", btn_edit: "Editar ✎", not_filled: "No completado", map_file: "Mapa Escenario (Archivo)", s6_map_link_summary: "Link / Descripción del Rider", btn_review_terms: "Revisar términos", terms_agreed: "Estoy de acuerdo con los términos.",
+                step_titles: ["Bienvenido<br>al Alto", "Datos<br>Básicos", "Términos y<br>Acuerdos", "Datos<br>Bancarios", "Material y<br>Prensa", "Mapa de<br>Escenario", "Horarios y<br>Consumo", "Resumen<br>Final"],
+                s1_title: "Vamos a afinar<br>los detalles.", s1_p1: "Es de absoluta importancia que cada etapa de este documento se lea y complete con atención, desde el momento en que se confirma la fecha.", s1_p2: "Esto garantiza que no haya fallos de comunicación respecto a temas técnicos, logísticos y financieros.", s1_booking: "Responsables del booking:",
+                s2_title: "Datos Básicos", s2_name: "Nombre completo del contacto *", s2_name_ph: "Ej: Juan Pérez", s2_band: "Nombre artístico / Banda *", s2_band_ph: "Ej: Los Mutantes", s2_email: "Correo de contacto *", s2_email_ph: "contacto@banda.com", s2_phone: "Número de teléfono *", s2_phone_ph: "+55 (11) 99999-9999",
+                s3_title: "Negociación", s3_div: "División de Taquilla", s3_div1: "<strong>Hasta 40 entradas:</strong> 50% Artista / 50% Sala", s3_div2: "<strong>Más de 40 entradas:</strong> 70% Artista / 30% Sala", s3_cap: "Capacidad", s3_cap_desc: "entradas se pondrán a la venta.", s3_prices: "Sugerencia de Precios", s3_p1: "<strong>R$ 25</strong> - 1º Lote (30 un.)", s3_p2: "<strong>R$ 35</strong> - 2º Lote (90 un.)", s3_p3: "<strong>R$ 40</strong> - Puerta", s3_agree: "He leído y estoy de acuerdo con los términos de taquilla y precios. Trataré cualquier duda con el responsable del booking.",
+                s4_title: "Financiero", s4_info1: "El pago se realizará a una <strong>única cuenta bancaria</strong>. El titular se responsabiliza de pagar al resto del equipo.", s4_info2: "Envío del reporte y cierre <strong>la semana posterior al evento</strong>.", s4_info3: "Pago en hasta <strong>15 días corridos</strong> tras el show.", s4_titular: "Nombre Completo del Titular *", s4_bank_opt: "Banco, Agencia y Cuenta (Opcional si PIX es celular/email)", s4_bank: "Banco", s4_ag: "Agencia", s4_acc: "Cuenta",
+                s5_title: "Comunicación", s5_desc: "Debido al volumen de eventos, publicamos en la semana del show. El artista debe comprometerse a animar a su público.", s5_date: "Fecha del concierto *", s5_drive: "Link de Drive (Fotos Públicas) *", s5_drive_ph: "Imprescindible: 1 foto portada 1920x1080px (16:9)", s5_release: "Release Artístico *", s5_btn_ex: "Ver Ejemplo", s5_ex_title: "Ejemplo:", s5_ex_text: "\"La banda X, formada en 2020 en São Paulo, trae una mezcla de indie rock con ritmos brasileños. El show tiene un repertorio enfocado en la energía en vivo.\"", s5_release_ph: "Ingresa tu release y datos relevantes en unos dos párrafos...", s5_rules: "Reglas de la Sala:", s5_r1: "La banda puede iniciar su promo antes que la sala.", s5_r2: "Enviaremos flyer con ID de Alto en la semana del evento.", s5_r3: "Publicamos agenda semanal los Lun/Mar.", s5_r4: "Publicamos arte individual del evento el mismo día.",
+                s6_title: "Parte Técnica", s6_form: "Formación en el Escenario *", s6_form_ph: "Ej: Ana (Voz/Acústica), Carlos (Bajo), Pedro (Batería)", s6_map_title: "Mapa de Escenario (Rider)", s6_map_desc: "Descarga nuestra imagen de ejemplo de escenario, escribe y/o dibuja encima tus instrumentos y micrófonos, y sube el archivo abajo. O pega el link de tu propio PDF.", s6_map_dl: "1. Bajar Plantilla", s6_map_ul: "2. Arrastra o Sube el Mapa", s6_or: "O", s6_map_link: "Describe o pega el Link de tu Rider *", s6_map_link_ph: "Pega el link de Drive/Dropbox, o describe: 'Batería atrás, 2 mics al frente...'", s6_pdf_house: "Ver PDF del Rider de la Sala", s6_pdf_desc: "Cualquier equipo extra es responsabilidad de la banda y debe ser aprobado. ¿Dudas? Habla con Miller (Sonidista): +55 (11) 93145-4227.",
+                s7_title: "Cronograma", s7_cons: "Consumo", s7_c1: "Hasta 40 entradas", s7_c2: "Más de 40 ent.", s7_camarim: "La sala no dispone de un camerino dedicado.", s7_hours: "Horarios Estándar", s7_h1_d: "Lun a Jue:", s7_h1_1: "Prueba sonido: 18h a 20h", s7_h1_2: "Inicio show: 21h (2 bandas) o 22h (1 banda)", s7_h1_3: "Fin: 23:30h | Desmontaje: 23:50h", s7_h2_d: "Viernes:", s7_h2_1: "Prueba sonido: 18h a 20h", s7_h2_2: "Inicio: 20:30h (2 bandas) o 21h (1 banda)", s7_h2_3: "Fin: 22:30h | Desmontaje: 22:50h", s7_h3_d: "Sábado:", s7_h3_1: "Prueba sonido: 15h a 18h", s7_h3_2: "Inicio: 18h(3b) | 19h(2b) | 20h(1b)", s7_h3_3: "Fin: 21:30h | Desmontaje: 22:00h", s7_h4_d: "Domingo:", s7_h4_1: "Prueba sonido: 14h a 16h", s7_h4_2: "Inicio: 19h(3b) | 20h(2b) | 21h(1b)", s7_h4_3: "Fin: 22:00h | Desmontaje: 22:30h", s7_agree: "Estoy al tanto y de acuerdo con la política de consumo, ausencia de camerino y la estricta puntualidad del cronograma.",
+                s8_title: "Resumen Final", s8_desc: "Revisa los datos a continuación. Puedes descargar una copia de este resumen para tus registros antes de enviar. Haz clic en los bloques para editar.",
+                succ_title: "¡Todo Listo!", succ_p1: "Recibimos tu información perfectamente.", succ_p2: "Nos vemos en Bar Alto. Cualquier duda, escríbenos por WhatsApp."
+            }
+        };
+
+        let currentLang = 'pt';
+        let currentStep = 1;
+        const totalSteps = 8;
+        let maxStepReached = 1;
+
+        // Padrões atualizados (novo padrão inserido no passo 6)
+        const patterns = [
+            'pattern-2', 'pattern-new-3', 'pattern-3', 'pattern-new-2', 'pattern-5', 'pattern-step-6', 'pattern-2', 'pattern-3'
+        ];
+
+        function changeLang(lang) {
+            currentLang = lang;
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang][key]) { el.innerHTML = i18n[lang][key]; }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (i18n[lang][key]) { el.setAttribute('placeholder', i18n[lang][key]); }
+            });
+
+            if (currentStep === 8) generateSummary();
+            updateUI(); 
+        }
+
+        function checkFileInput() {
+            const fileInput = document.getElementById('rider-file');
+            const display = document.getElementById('file-name-display');
+            const textInput = document.getElementById('rider-input');
+            
+            if (fileInput.files.length > 0) {
+                display.innerText = "✓ " + fileInput.files[0].name;
+                display.classList.remove('hidden');
+                textInput.removeAttribute('required'); 
+                textInput.classList.remove('border-alto-red', 'bg-red-50');
+            } else {
+                display.classList.add('hidden');
+                textInput.setAttribute('required', 'true');
+            }
+        }
+
+        function updateUI() {
+            if (currentStep > maxStepReached) maxStepReached = currentStep;
+
+            document.querySelectorAll('.step-container').forEach(el => el.classList.remove('active'));
+            
+            const currentEl = document.getElementById(`step-${currentStep}`);
+            if (currentEl) currentEl.classList.add('active');
+
+            const patternLayer = document.getElementById('pattern-layer');
+            patternLayer.style.opacity = '0';
+            
+            setTimeout(() => {
+                patternLayer.className = `absolute inset-0 w-full h-full z-0 transition-opacity duration-500 ${patterns[currentStep - 1]}`;
+                patternLayer.style.opacity = '1'; 
+            }, 300);
+
+            const translatedTitles = i18n[currentLang].step_titles;
+            document.getElementById('step-title').innerHTML = translatedTitles[currentStep - 1];
+            document.getElementById('step-title-mobile').innerHTML = translatedTitles[currentStep - 1].replace('<br>', ' ');
+            document.getElementById('step-counter').innerText = `0${currentStep} / 0${totalSteps}`;
+            document.getElementById('step-counter-mobile').innerText = `0${currentStep} / 0${totalSteps}`;
+
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            const btnSubmit = document.getElementById('btn-submit');
+            const duvidasBtn = document.getElementById('duvidas-container');
+            const btnJumpSummary = document.getElementById('btn-jump-summary');
+
+            if (currentStep === 1) {
+                btnPrev.classList.add('hidden');
+                duvidasBtn.classList.add('hidden'); 
+                btnNext.innerText = i18n[currentLang].btn_start;
+                btnNext.classList.remove('w-auto');
+                btnNext.classList.add('w-full'); 
+            } else {
+                btnPrev.classList.remove('hidden');
+                duvidasBtn.classList.remove('hidden'); 
+                btnNext.innerText = i18n[currentLang].btn_next;
+                btnNext.classList.remove('w-full');
+            }
+
+            if (btnJumpSummary) {
+                if (maxStepReached >= 8 && currentStep < 8) {
+                    btnJumpSummary.classList.remove('hidden');
+                } else {
+                    btnJumpSummary.classList.add('hidden');
+                }
+            }
+
+            if (currentStep === totalSteps) {
+                btnNext.classList.add('hidden');
+                btnSubmit.classList.remove('hidden');
+            } else {
+                btnNext.classList.remove('hidden');
+                btnSubmit.classList.add('hidden');
+            }
+        }
+
+        function validateStep() {
+            if (currentStep === 1 || currentStep === 8) return true;
+            
+            const currentSection = document.getElementById(`step-${currentStep}`);
+            const inputs = currentSection.querySelectorAll('input[required], textarea[required]');
+            let isValid = true;
+
+            if (currentStep === 6) {
+                const textInput = document.getElementById('rider-input');
+                const fileInput = document.getElementById('rider-file');
+                
+                if (!textInput.value && fileInput.files.length === 0) {
+                    textInput.classList.add('border-alto-red', 'bg-red-50');
+                    isValid = false;
+                } else {
+                    textInput.classList.remove('border-alto-red', 'bg-red-50');
+                }
+            }
+
+            inputs.forEach(input => {
+                if (input.id === 'rider-input' && document.getElementById('rider-file').files.length > 0) return;
+
+                if (!input.value || (input.type === 'checkbox' && !input.checked)) {
+                    isValid = false;
+                    input.classList.add('border-alto-red', 'bg-red-50');
+                } else {
+                    input.classList.remove('border-alto-red', 'bg-red-50');
+                }
+            });
+
+            if(!isValid) {
+                const btnNext = document.getElementById('btn-next');
+                if(btnNext && !btnNext.classList.contains('hidden')){
+                    btnNext.style.transform = "translateX(5px)";
+                    setTimeout(() => btnNext.style.transform = "translateX(-5px)", 100);
+                    setTimeout(() => btnNext.style.transform = "translateX(0)", 200);
+                }
+            }
+
+            return isValid;
+        }
+
+        function nextStep() {
+            if (validateStep() && currentStep < totalSteps) {
+                currentStep++;
+                if (currentStep === 8) { generateSummary(); }
+                updateUI();
+                document.getElementById('form-scroll-area').scrollTop = 0;
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateUI();
+                document.getElementById('form-scroll-area').scrollTop = 0;
+            }
+        }
+
+        function goToStep(stepNum) {
+            if (stepNum === 8) {
+                if(!validateStep()) return; 
+                generateSummary();
+            }
+            currentStep = stepNum;
+            updateUI();
+            document.getElementById('form-scroll-area').scrollTop = 0;
+        }
+
+        function toggleDuvidas(e) {
+            e.stopPropagation();
+            const popover = document.getElementById('duvidas-popover');
+            popover.classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', function(e) {
+            const popover = document.getElementById('duvidas-popover');
+            if (popover && !popover.classList.contains('hidden') && !e.target.closest('#duvidas-container')) {
+                popover.classList.add('hidden');
+            }
+        });
+
+        // Lógica de Drag and Drop
+        const dropZone = document.getElementById('drop-zone');
+        if(dropZone) {
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+            function preventDefaults (e) { e.preventDefault(); e.stopPropagation(); }
+            ['dragenter', 'dragover'].forEach(eventName => { dropZone.addEventListener(eventName, highlight, false); });
+            ['dragleave', 'drop'].forEach(eventName => { dropZone.addEventListener(eventName, unhighlight, false); });
+            function highlight(e) { dropZone.classList.add('bg-blue-50'); }
+            function unhighlight(e) { dropZone.classList.remove('bg-blue-50'); }
+            dropZone.addEventListener('drop', handleDrop, false);
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                document.getElementById('rider-file').files = dt.files;
+                checkFileInput();
+            }
+        }
+
+        function generateSummary() {
+            const summaryDiv = document.getElementById('summary-content');
+            let html = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+            
+            const editLabel = i18n[currentLang].btn_edit || "Editar ✎";
+            const emptyLabel = i18n[currentLang].not_filled || "Não preenchido";
+            const mapLabel = i18n[currentLang].map_file || "Mapa de Palco (Arquivo)";
+            const mapLinkSummary = i18n[currentLang].s6_map_link_summary || "Link / Descrição do Rider";
+            const btnReview = i18n[currentLang].btn_review_terms || "Rever termos";
+            const termsAgreed = i18n[currentLang].terms_agreed || "Concordo com os termos definidos.";
+
+            // Ordem personalizada para colocar os passos 3 e 7 por último
+            const stepOrder = [2, 4, 5, 6, 3, 7];
+
+            for(let i of stepOrder) {
+                const step = document.getElementById('step-' + i);
+                const title = step.querySelector('h2').innerText;
+                
+                html += `
+                <div class="border-2 border-alto-blue p-4 cursor-pointer bg-white hover:bg-blue-50 transition-colors group relative" onclick="goToStep(${i})">
+                    <div class="flex justify-between items-center mb-3 border-b border-gray-200 pb-2">
+                        <h4 class="font-display text-alto-red uppercase m-0 group-hover:text-alto-blue transition-colors text-sm md:text-base">${title}</h4>
+                        <span class="text-[10px] font-bold text-alto-blue bg-gray-100 px-2 py-1 rounded group-hover:bg-white border border-gray-200 print-hide">${editLabel}</span>
+                    </div>
+                    <div class="space-y-3">
+                `;
+                
+                if (i === 3 || i === 7) {
+                    html += `
+                        <div class="flex flex-col gap-3">
+                            <label class="checkbox-container" onclick="event.preventDefault(); goToStep(${i})">
+                                <input type="checkbox" checked tabindex="-1">
+                                <span class="text-sm font-medium text-alto-blue">${termsAgreed}</span>
+                            </label>
+                            <button type="button" class="bg-alto-blue text-white border-2 border-alto-blue font-bold uppercase tracking-widest hover:bg-transparent hover:text-alto-blue transition-colors text-[10px] md:text-xs py-2 px-3 self-start print-hide" onclick="event.stopPropagation(); goToStep(${i})">${btnReview}</button>
+                        </div>
+                    `;
+                } else {
+                    const inputs = step.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="url"], textarea');
+                    inputs.forEach(input => {
+                        if(input.id === 'rider-input' && input.value === '') return; 
+                        
+                        let label = 'Campo';
+                        if(input.previousElementSibling && input.previousElementSibling.tagName === 'LABEL') {
+                            label = input.previousElementSibling.innerText.replace(' *', '');
+                        } else if (input.id === 'rider-input') {
+                            label = mapLinkSummary;
+                        }
+                        
+                        const val = input.value || `<span class="text-alto-red font-bold">${emptyLabel}</span>`;
+                        html += `<div><strong class="text-[10px] uppercase tracking-wider text-gray-500 block mb-0.5">${label}</strong><p class="text-sm font-medium break-words leading-snug">${val}</p></div>`;
+                    });
+                    
+                    if (i === 6) {
+                        const fileInput = document.getElementById('rider-file');
+                        if (fileInput && fileInput.files.length > 0) {
+                             html += `<div><strong class="text-[10px] uppercase tracking-wider text-gray-500 block mb-0.5">${mapLabel}</strong><p class="text-sm font-medium text-alto-green break-words">${fileInput.files[0].name}</p></div>`;
+                        }
+                    }
+                }
+                
+                html += `</div></div>`;
+            }
+            html += '</div>';
+            summaryDiv.innerHTML = html;
+        }
+
+        function submitForm() {
+            if(validateStep()) {
+                document.querySelectorAll('.step-container').forEach(el => el.classList.remove('active'));
+                document.getElementById('step-success').classList.add('active');
+                document.getElementById('nav-buttons').style.display = 'none';
+                
+                const patternLayer = document.getElementById('pattern-layer');
+                patternLayer.style.opacity = '0';
+                setTimeout(() => {
+                    patternLayer.className = `absolute inset-0 w-full h-full z-0 transition-opacity duration-500 pattern-success`;
+                    patternLayer.style.opacity = '1';
+                }, 300);
+
+                document.getElementById('step-title').innerHTML = i18n[currentLang].succ_title;
+                document.getElementById('step-title-mobile').innerHTML = i18n[currentLang].succ_title;
+                document.getElementById('step-counter').innerText = "";
+                document.getElementById('step-counter-mobile').innerText = "";
+            }
+        }
+
+        // Init
+        setTimeout(() => { changeLang('pt'); }, 50);
+
+        // Limpa estado de erro ao digitar
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('border-alto-red', 'bg-red-50');
+                if (this.id === 'rider-input' && this.value !== '') {
+                    document.getElementById('rider-file').value = "";
+                    const display = document.getElementById('file-name-display');
+                    if(display) display.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
